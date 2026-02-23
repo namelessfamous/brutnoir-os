@@ -4,6 +4,8 @@ Neobrutal Noir React design system inspired by vintage desktop UX (Mac OS + Wind
 
 ![brutnoir-os screenshot](./screenshot.png)
 
+**(DEMO)[https://www.namelessfamous.com/projects/brutnoir-os/demo]**
+
 - Draggable/resizable windows
 - Desktop shell with menu bar + dock/start menu
 - Forms, overlays, typography, and primitives
