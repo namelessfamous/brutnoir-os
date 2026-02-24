@@ -13,6 +13,17 @@ export { MenuBar } from "./components/MenuBar";
 export type { MenuBarItem } from "./components/MenuBar";
 export { ScreenDock } from "./components/ScreenDock";
 export type { DockApp } from "./components/ScreenDock";
+export { DesktopView } from "./components/DesktopView";
+export type {
+  DesktopItem,
+  SidebarItem,
+  SidebarSection,
+  DesktopPreference,
+  DesktopPreferenceOption,
+  DesktopViewMode,
+  DesktopIconSize,
+  DesktopViewProps,
+} from "./components/DesktopView";
 
 // ── Core ──────────────────────────────────────────────────────────────────────
 export { Header, Text, Icon } from "./components/Typography";
