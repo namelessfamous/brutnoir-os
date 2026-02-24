@@ -5,7 +5,7 @@
 
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, JSX, ReactNode } from "react";
 import { colors, fonts } from "../tokens";
 
 // ─── Header ───────────────────────────────────────────────────────────────────

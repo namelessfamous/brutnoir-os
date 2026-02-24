@@ -6,7 +6,7 @@
 
 "use client";
 
-import type { ReactNode, CSSProperties } from "react";
+import { useEffect, type ReactNode, type CSSProperties } from "react";
 import { GlobalStyles } from "../tokens/GlobalStyles";
 import { ScreenProvider, useScreen } from "../hooks";
 import { MenuBar, type MenuBarItem } from "./MenuBar";
@@ -18,8 +18,12 @@ import { Notification } from "./Overlays";
 
 interface ScreenProps {
   children?: ReactNode;
+  /** Browser tab title */
+  title?: string;
   /** Custom CSS background (replaces default NF wallpaper) */
   wallpaper?: CSSProperties["background"];
+  /** Menu items appended to the default menu bar */
+  menu?: MenuBarItem[];
   /** Extra items appended to the default menu bar */
   menuItems?: MenuBarItem[];
   /** Apps registered to the NF dock / start menu */
@@ -28,8 +32,12 @@ interface ScreenProps {
 
 // ─── Internal desktop (must live inside ScreenProvider) ───────────────────────
 
-function Desktop({ children, wallpaper, menuItems = [], dockApps = [] }: ScreenProps) {
+function Desktop({ children, title = "brutNOIR", wallpaper, menu = [], menuItems = [], dockApps = [] }: ScreenProps) {
   const { windows, notifications } = useScreen();
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
 
   return (
     <div className="nf-os-root" style={{
@@ -44,7 +52,7 @@ function Desktop({ children, wallpaper, menuItems = [], dockApps = [] }: ScreenP
         #0a0a0b
       `,
     }}>
-      <MenuBar items={menuItems} />
+      <MenuBar items={menu.length > 0 ? menu : menuItems} />
 
       {/* Desktop workspace */}
       <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>

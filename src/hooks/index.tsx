@@ -10,6 +10,7 @@ import {
   useContext,
   useState,
   useCallback,
+  type JSX,
   type ReactNode,
 } from "react";
 
@@ -75,7 +76,7 @@ export function useScreen(): ScreenContextValue {
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
-export function ScreenProvider({ children }: { children: ReactNode }) {
+export function ScreenProvider({ children }: { children: ReactNode }): JSX.Element {
   const [windows, setWindows] = useState<WindowState[]>([]);
   const [activeWindow, setActiveWindow] = useState<string | null>(null);
   const [notifications, setNotifications] = useState<NotificationState[]>([]);
