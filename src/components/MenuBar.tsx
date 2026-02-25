@@ -28,9 +28,10 @@ interface MenuBarProps {
   /**
    * Logo mark shown left of the menu items.
    * - URL/path string → rendered as <img> (e.g. "/icon.svg")
-   * - Omit or empty → falls back to the default ✦ glyph
+   * - ReactNode (inline JSX / SVG) → rendered directly
+   * - Omit → falls back to the default ✦ glyph
    */
-  icon?: string;
+  icon?: string | ReactNode;
   /** Slot for right-side tray content */
   tray?: ReactNode;
 }
@@ -108,11 +109,15 @@ export function MenuBar({ items = [], replaceDefaults = false, icon, tray }: Men
         flexShrink: 0,
       }}>
         {icon ? (
-          <img
-            src={icon}
-            alt="app icon"
-            style={{ width: 18, height: 18, objectFit: "contain" }}
-          />
+          typeof icon === "string" ? (
+            <img
+              src={icon}
+              alt="app icon"
+              style={{ width: 18, height: 18, objectFit: "contain" }}
+            />
+          ) : (
+            icon
+          )
         ) : (
           <span style={{
             color: colors.acid,

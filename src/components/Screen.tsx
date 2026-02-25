@@ -22,10 +22,11 @@ interface ScreenProps {
   title?: string;
   /**
    * Logo shown in the menu bar's left-most slot.
-   * URL/path → rendered as <img>. Omit → default ✦ glyph.
-   * Default: "nf-icon-composed.svg"
+   * - URL/path string → rendered as <img>
+   * - Inline JSX/SVG ReactNode → rendered directly
+   * - Omit → default ✦ glyph
    */
-  icon?: string;
+  icon?: string | ReactNode;
   /** Custom CSS background (replaces default NF wallpaper) */
   wallpaper?: CSSProperties["background"];
   /** Menu items appended to the default menu bar */
