@@ -23,6 +23,14 @@ export interface MenuBarItem {
 
 interface MenuBarProps {
   items?: MenuBarItem[];
+  /** Replace the default NF/OS + File + View items entirely */
+  replaceDefaults?: boolean;
+  /**
+   * Logo mark shown left of the menu items.
+   * - URL/path string → rendered as <img> (e.g. "/icon.svg")
+   * - Omit or empty → falls back to the default ✦ glyph
+   */
+  icon?: string;
   /** Slot for right-side tray content */
   tray?: ReactNode;
 }
@@ -58,7 +66,7 @@ const defaultItems: MenuBarItem[] = [
   },
 ];
 
-export function MenuBar({ items = [], tray }: MenuBarProps) {
+export function MenuBar({ items = [], replaceDefaults = false, icon, tray }: MenuBarProps) {
   const [open, setOpen] = useState<number | null>(null);
   const [time, setTime] = useState("");
 
@@ -69,7 +77,7 @@ export function MenuBar({ items = [], tray }: MenuBarProps) {
     return () => clearInterval(t);
   }, []);
 
-  const allItems = [...defaultItems, ...items];
+  const allItems = replaceDefaults ? items : [...defaultItems, ...items];
 
   return (
     <div
@@ -89,21 +97,32 @@ export function MenuBar({ items = [], tray }: MenuBarProps) {
         flexShrink: 0,
       }}
     >
-      {/* NF logo mark */}
+      {/* Logo mark */}
       <span style={{
         width: 28,
         height: 24,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: colors.acid,
-        fontFamily: fonts.display,
-        fontSize: 24,
-        fontWeight: "bold",
         borderRight: `1px solid ${colors.noirBorder}`,
         flexShrink: 0,
       }}>
-        ✦
+        {icon ? (
+          <img
+            src={icon}
+            alt="app icon"
+            style={{ width: 18, height: 18, objectFit: "contain" }}
+          />
+        ) : (
+          <span style={{
+            color: colors.acid,
+            fontFamily: fonts.display,
+            fontSize: 24,
+            fontWeight: "bold",
+          }}>
+            ✦
+          </span>
+        )}
       </span>
 
       {allItems.map((item, i) => (

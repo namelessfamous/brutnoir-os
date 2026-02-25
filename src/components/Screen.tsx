@@ -20,6 +20,12 @@ interface ScreenProps {
   children?: ReactNode;
   /** Browser tab title */
   title?: string;
+  /**
+   * Logo shown in the menu bar's left-most slot.
+   * URL/path → rendered as <img>. Omit → default ✦ glyph.
+   * Default: "nf-icon-composed.svg"
+   */
+  icon?: string;
   /** Custom CSS background (replaces default NF wallpaper) */
   wallpaper?: CSSProperties["background"];
   /** Menu items appended to the default menu bar */
@@ -32,7 +38,7 @@ interface ScreenProps {
 
 // ─── Internal desktop (must live inside ScreenProvider) ───────────────────────
 
-function Desktop({ children, title = "brutNOIR", wallpaper, menu = [], menuItems = [], dockApps = [] }: ScreenProps) {
+function Desktop({ children, title = "brutNOIR", icon = "nf-icon-composed.svg", wallpaper, menu = [], menuItems = [], dockApps = [] }: ScreenProps) {
   const { windows, notifications } = useScreen();
 
   useEffect(() => {
@@ -52,7 +58,11 @@ function Desktop({ children, title = "brutNOIR", wallpaper, menu = [], menuItems
         #0a0a0b
       `,
     }}>
-      <MenuBar items={menu.length > 0 ? menu : menuItems} />
+      <MenuBar
+        items={menu.length > 0 ? menu : menuItems}
+        replaceDefaults={menu.length > 0}
+        icon={icon}
+      />
 
       {/* Desktop workspace */}
       <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>

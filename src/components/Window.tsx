@@ -30,6 +30,8 @@ interface WindowProps {
   resizable?: boolean;
   controls?: boolean;
   style?: CSSProperties;
+  /** Called when the close (×) button is clicked, after closeWindow(id) */
+  onClose?: () => void;
 }
 
 // ─── Window ───────────────────────────────────────────────────────────────────
@@ -42,6 +44,7 @@ export function Window({
   resizable = true,
   controls = true,
   style: styleProp,
+  onClose,
 }: WindowProps) {
   const { closeWindow, minimizeWindow, focusWindow, activeWindow } = useScreen();
   const [pos, setPos] = useState({ x: defaultX, y: defaultY });
@@ -119,7 +122,7 @@ export function Window({
       >
         {controls && (
           <div className="nf-window-control" style={{ display: "flex", gap: 5, flexShrink: 0 }}>
-            <TrafficLight color={colors.crimson} title="Close" onClick={() => closeWindow(id)} />
+            <TrafficLight color={colors.crimson} title="Close" onClick={() => { closeWindow(id); onClose?.(); }} />
             <TrafficLight color={colors.amber} title="Minimize" onClick={() => minimizeWindow(id)} />
             <TrafficLight color={colors.acid} title="Zoom" onClick={() => setMaximized((v) => !v)} />
           </div>
