@@ -18,8 +18,11 @@ import { colors, fonts, shadows } from "../tokens";
 export interface DesktopItem {
   id: string;
   label: string;
-  /** Emoji or unicode glyph shown as the icon */
-  icon: string;
+  /**
+   * Emoji, unicode glyph, or ReactNode (inline SVG / component).
+   * Strings are rendered as text; ReactNodes are rendered directly.
+   */
+  icon: string | ReactNode;
   type?: "app" | "folder" | "file" | "link";
   /** Called on single-click / selection */
   onClick?: () => void;
@@ -30,7 +33,8 @@ export interface DesktopItem {
 export interface SidebarItem {
   id: string;
   label: string;
-  icon: string;
+  /** Emoji, unicode glyph, or ReactNode */
+  icon: string | ReactNode;
   onClick?: () => void;
 }
 
