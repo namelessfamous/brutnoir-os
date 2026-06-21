@@ -1,6 +1,6 @@
 {
   "name": "@namelessfamous/brutnoir-os",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Neobrutal Noir design system — Vintage Mac OS × Windows 95 × modern darkness",
   "keywords": [
     "react",
@@ -35,7 +35,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build"
   },
   "peerDependencies": {
     "react": ">=18",
